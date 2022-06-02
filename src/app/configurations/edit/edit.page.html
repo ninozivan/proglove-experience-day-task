@@ -1,7 +1,10 @@
 <ion-header>
   <ion-toolbar color="dark">
     <ion-buttons slot="start">
-      <ion-back-button text="Back"></ion-back-button>
+      <ion-back-button
+        text="Back"
+        defaultHref="configurations"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title> Edit Configuration </ion-title>
   </ion-toolbar>
@@ -11,7 +14,9 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <app-config-settings-form></app-config-settings-form>
+        <app-config-settings-form
+          [itemConfig]="null"
+        ></app-config-settings-form>
       </ion-col>
     </ion-row>
   </ion-grid>
