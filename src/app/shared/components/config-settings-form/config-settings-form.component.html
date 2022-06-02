@@ -18,14 +18,16 @@
             <ion-label position="stacked" class="mb-10"
               >Feedback type</ion-label
             >
-            <ion-radio-group value="audible">
-              <ion-item>
-                <ion-label>Audible</ion-label>
-                <ion-radio slot="start" value="audible"></ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-label>Visible</ion-label>
-                <ion-radio slot="start" value="visible"></ion-radio>
+            <ion-radio-group
+              [value]="initialFeedbackTypeValue"
+              (ionChange)="onFeedbackTypeChanged($event)"
+            >
+              <ion-item *ngFor="let feedbackType of feedbackTypes">
+                <ion-label>{{ feedbackType?.title }}</ion-label>
+                <ion-radio
+                  slot="start"
+                  [value]="feedbackType?.enum"
+                ></ion-radio>
               </ion-item>
             </ion-radio-group>
           </ion-item>
@@ -34,15 +36,16 @@
           <ion-item>
             <ion-label position="stacked">Feedback option</ion-label>
             <ion-select
-              value="brown"
+              [value]="selectedFeedbackOption?.enum"
               okText="Okay"
               cancelText="Dismiss"
-              formControlName="timeout"
+              (ionChange)="onFeedbackTypeOptionChanged($event)"
             >
-              <ion-select-option value="brown">Brown</ion-select-option>
-              <ion-select-option value="blonde">Blonde</ion-select-option>
-              <ion-select-option value="black">Black</ion-select-option>
-              <ion-select-option value="red">Red</ion-select-option>
+              <ion-select-option
+                *ngFor="let feedbackOption of feedbackTypeOptions"
+                [value]="feedbackOption?.enum"
+                >{{ feedbackOption?.title }}</ion-select-option
+              >
             </ion-select>
           </ion-item>
         </ion-col>
