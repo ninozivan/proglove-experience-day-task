@@ -1,0 +1,7 @@
+{
+  "name": "proglove-experience-day-task",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
