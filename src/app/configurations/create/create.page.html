@@ -17,11 +17,13 @@
         <app-config-settings-form
           [itemConfig]="null"
           (formValueChanged)="onFormValueChanged($event)"
+          (formValidStateChanged)="onFormValidStateChanged($event)"
         ></app-config-settings-form>
         <ion-button
           class="ion-margin"
           color="success"
           (click)="onCreateConfig()"
+          [disabled]="!formIsValid"
           >Create</ion-button
         >
       </ion-col>

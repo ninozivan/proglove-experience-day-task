@@ -16,6 +16,7 @@ export class EditPage implements OnInit, OnDestroy {
   public destroyed$: Subject<boolean> = new Subject();
   public configuration!: IConfiguration;
   private listItem!: IConfigListItem;
+  public formIsValid!: boolean;
 
   constructor(
     private router: Router,
@@ -56,5 +57,9 @@ export class EditPage implements OnInit, OnDestroy {
   public onSaveChanges(): void {
     this.appService.updateConfig(this.listItem);
     this.router.navigateByUrl('/configurations');
+  }
+
+  public onFormValidStateChanged(state: boolean): void {
+    this.formIsValid = state;
   }
 }

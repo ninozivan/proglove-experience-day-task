@@ -50,6 +50,9 @@ export class ConfigSettingsFormComponent implements OnInit, OnDestroy {
   @Output() formValueChanged: EventEmitter<IConfiguration> =
     new EventEmitter<IConfiguration>();
 
+  @Output() formValidStateChanged: EventEmitter<boolean> =
+    new EventEmitter<boolean>();
+
   @Input() set itemConfig(config: IConfiguration) {
     this.setupForm(config);
   }
@@ -136,8 +139,10 @@ export class ConfigSettingsFormComponent implements OnInit, OnDestroy {
         Validators.min(1),
         Validators.max(10000),
       ]),
-      feedbackType: new FormControl(initialFeedbackType),
-      feedbackOption: new FormControl(initialFeedbackTypeOption),
+      feedbackType: new FormControl(initialFeedbackType, [Validators.required]),
+      feedbackOption: new FormControl(initialFeedbackTypeOption, [
+        Validators.required,
+      ]),
     });
 
     this.formGroup?.valueChanges
@@ -157,6 +162,7 @@ export class ConfigSettingsFormComponent implements OnInit, OnDestroy {
         };
 
         this.formValueChanged?.emit(newConfig);
+        this.formValidStateChanged?.emit(this.formGroup?.valid);
       });
 
     this.formGroup?.controls?.feedbackType?.valueChanges

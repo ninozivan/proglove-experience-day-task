@@ -17,8 +17,13 @@
         <app-config-settings-form
           [itemConfig]="configuration"
           (formValueChanged)="onFormValueChanged($event)"
+          (formValidStateChanged)="onFormValidStateChanged($event)"
         ></app-config-settings-form>
-        <ion-button class="ion-margin" color="success" (click)="onSaveChanges()"
+        <ion-button
+          class="ion-margin"
+          color="success"
+          (click)="onSaveChanges()"
+          [disabled]="formIsValid"
           >Save changes</ion-button
         >
       </ion-col>

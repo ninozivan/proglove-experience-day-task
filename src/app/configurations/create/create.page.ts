@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IConfigListItem } from 'src/app/context/global.model';
@@ -11,6 +12,7 @@ import { IConfiguration } from 'src/assets/proto/configuration';
 })
 export class CreatePage implements OnInit {
   private listItem!: IConfigListItem;
+  public formIsValid!: boolean;
 
   constructor(private appService: ApplicationService, private router: Router) {}
 
@@ -23,5 +25,9 @@ export class CreatePage implements OnInit {
   public onCreateConfig(): void {
     this.appService.createNewConfig(this.listItem);
     this.router.navigateByUrl('/configurations');
+  }
+
+  public onFormValidStateChanged(state: boolean): void {
+    this.formIsValid = state;
   }
 }
