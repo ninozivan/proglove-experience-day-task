@@ -18,14 +18,14 @@
       <ion-col>
         <ion-list>
           <ion-item *ngFor="let item of listOfConfigurations; let i = index">
-            <ion-label> {{i + 1}} Configuration Item </ion-label>
+            <ion-label> {{i + 1}} {{item.deviceName}} </ion-label>
             <ion-note slot="end">
-              <ion-button fill="outline" size="small" (click)="onEdit()">
+              <ion-button fill="outline" size="small" (click)="onEdit(item)">
                 <ion-icon slot="icon-only" name="pencil"></ion-icon>
               </ion-button>
-              <ion-button fill="outline" size="small" color="danger">
+              <!-- <ion-button fill="outline" size="small" color="danger">
                 <ion-icon slot="icon-only" name="trash"></ion-icon>
-              </ion-button>
+              </ion-button> -->
             </ion-note>
           </ion-item>
         </ion-list>
