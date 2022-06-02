@@ -11,12 +11,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <ion-grid fixed>
     <ion-row>
       <ion-col>
         <app-config-settings-form
           [itemConfig]="null"
+          (formValueChanged)="onFormValueChanged($event)"
         ></app-config-settings-form>
+        <ion-button class="ion-margin" color="success">Save changes</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IConfiguration } from 'src/assets/proto/configuration';
 
 @Component({
   selector: 'app-edit',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit.page.scss'],
 })
 export class EditPage implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  public onFormValueChanged(config: IConfiguration): void {
+    console.log('config changed on edit page: ', config);
   }
-
 }

@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/member-ordering */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { auditTime } from 'rxjs/operators';
 
 import { Configuration, IConfiguration } from 'src/assets/proto/configuration';
 
@@ -31,6 +32,9 @@ interface IFeedbackTypeOption {
   styleUrls: ['./config-settings-form.component.scss'],
 })
 export class ConfigSettingsFormComponent implements OnInit {
+  @Output() formValueChanged: EventEmitter<IConfiguration> =
+    new EventEmitter<IConfiguration>();
+
   @Input() set itemConfig(config: IConfiguration) {
     this.setupForm(config);
   }
@@ -91,6 +95,10 @@ export class ConfigSettingsFormComponent implements OnInit {
 
   ngOnInit() {}
 
+  public get selectedFeedbackOptionValue(): number {
+    return this.selectedFeedbackOption?.enum;
+  }
+
   public setupForm(config: IConfiguration): void {
     this.formGroup?.reset();
 
@@ -109,6 +117,12 @@ export class ConfigSettingsFormComponent implements OnInit {
       visibleFeedback: new FormControl(config?.visibleFeedback || null),
     });
 
+    this.formGroup?.valueChanges
+      ?.pipe(auditTime(300))
+      .subscribe((formValues: IConfiguration) => {
+        this.formValueChanged?.emit(formValues);
+      });
+
     this.handleFeedbackTypeChange(FeedbackTypes.VisibleFeedback);
   }
 
@@ -125,16 +139,14 @@ export class ConfigSettingsFormComponent implements OnInit {
   private handleFeedbackTypeChange(selectedType: FeedbackTypes): void {
     if (selectedType === FeedbackTypes.AudibleFeedback) {
       this.formGroup?.controls?.visibleFeedback?.setValue(null);
-      this.feedbackTypeOptions = JSON.parse(
-        JSON.stringify(this.audibleFeedbackTypes)
-      );
+      this.feedbackTypeOptions = this.audibleFeedbackTypes;
       this.selectedFeedbackOption = this.audibleFeedbackTypes[0];
     } else if (selectedType === FeedbackTypes.VisibleFeedback) {
       this.formGroup?.controls?.visibleFeedback?.setValue(null);
-      this.feedbackTypeOptions = JSON.parse(
-        JSON.stringify(this.visibleFeedbackTypes)
-      );
+      this.feedbackTypeOptions = this.visibleFeedbackTypes;
       this.selectedFeedbackOption = this.visibleFeedbackTypes[0];
     }
+
+    this.formGroup?.updateValueAndValidity();
   }
 }
