@@ -1,0 +1,54 @@
+<form *ngIf="formGroup" [formGroup]="formGroup">
+  <ion-list lines="full">
+    <ion-item-divider class="mb-10">
+      <ion-label> Configuration details </ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-label position="stacked">Scanner name</ion-label>
+      <ion-input inputmode="text" formControlName="deviceName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Timeout (stand-by)</ion-label>
+      <ion-input inputmode="numeric" formControlName="timeout"></ion-input>
+    </ion-item>
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+        <ion-col size="auto">
+          <ion-item>
+            <ion-label position="stacked" class="mb-10"
+              >Feedback type</ion-label
+            >
+            <ion-radio-group formControlName="feedbackType">
+              <ion-item *ngFor="let feedbackType of feedbackTypes">
+                <ion-label>{{ feedbackType?.title }}</ion-label>
+                <ion-radio
+                  slot="start"
+                  [value]="feedbackType?.type"
+                ></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item *ngIf="feedbackTypeOptions?.length > 0">
+            <ion-label position="stacked">Feedback option</ion-label>
+            <ion-select
+              okText="Okay"
+              cancelText="Dismiss"
+              formControlName="feedbackOption"
+            >
+              <ion-select-option
+                *ngFor="let feedbackOption of feedbackTypeOptions"
+                [value]="feedbackOption?.enum"
+                >{{ feedbackOption?.title }}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+          <ion-progress-bar
+            *ngIf="feedbackTypeOptions?.length < 0"
+          ></ion-progress-bar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+</form>

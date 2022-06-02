@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button><ion-icon name="menu"></ion-icon></ion-menu-button>
+    </ion-buttons>
+    <ion-title> List of configurations </ion-title>
+    <ion-buttons slot="end">
+      <ion-button size="small" (click)="onCreate()"
+        ><ion-icon name="add-outline"></ion-icon> Create
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let item of listOfConfigurations; let i = index">
+            <ion-label> {{i + 1}} | {{item.deviceName}} </ion-label>
+            <ion-note slot="end">
+              <ion-button fill="outline" size="small" (click)="onEdit(item)">
+                <ion-icon slot="icon-only" name="pencil"></ion-icon>
+              </ion-button>
+              <!-- <ion-button fill="outline" size="small" color="danger">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-button> -->
+            </ion-note>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

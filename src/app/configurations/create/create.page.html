@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button
+        text="Back"
+        defaultHref="configurations"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title> Create Configuration </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col>
+        <app-config-settings-form
+          [itemConfig]="null"
+          (formValueChanged)="onFormValueChanged($event)"
+        ></app-config-settings-form>
+        <ion-button
+          class="ion-margin"
+          color="success"
+          (click)="onCreateConfig()"
+          >Create</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
