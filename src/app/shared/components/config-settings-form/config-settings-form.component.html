@@ -18,28 +18,24 @@
             <ion-label position="stacked" class="mb-10"
               >Feedback type</ion-label
             >
-            <ion-radio-group
-              [value]="initialFeedbackTypeValue"
-              (ionChange)="onFeedbackTypeChanged($event)"
-            >
+            <ion-radio-group formControlName="feedbackType">
               <ion-item *ngFor="let feedbackType of feedbackTypes">
                 <ion-label>{{ feedbackType?.title }}</ion-label>
                 <ion-radio
                   slot="start"
-                  [value]="feedbackType?.enum"
+                  [value]="feedbackType?.type"
                 ></ion-radio>
               </ion-item>
             </ion-radio-group>
           </ion-item>
         </ion-col>
         <ion-col>
-          <ion-item>
+          <ion-item *ngIf="feedbackTypeOptions?.length > 0">
             <ion-label position="stacked">Feedback option</ion-label>
             <ion-select
-              [value]="selectedFeedbackOption?.enum"
               okText="Okay"
               cancelText="Dismiss"
-              (ionChange)="onFeedbackTypeOptionChanged($event)"
+              formControlName="feedbackOption"
             >
               <ion-select-option
                 *ngFor="let feedbackOption of feedbackTypeOptions"
@@ -48,6 +44,9 @@
               >
             </ion-select>
           </ion-item>
+          <ion-progress-bar
+            *ngIf="feedbackTypeOptions?.length < 0"
+          ></ion-progress-bar>
         </ion-col>
       </ion-row>
     </ion-grid>
