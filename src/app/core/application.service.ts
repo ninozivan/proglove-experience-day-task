@@ -65,4 +65,9 @@ export class ApplicationService {
 
     this.listOfConfigs$.next(this.listOfConfig);
   }
+
+  public createNewConfig(listItem: IConfigListItem): void {
+    this.listOfConfig.push(listItem);
+    this.listOfConfigs$.next(this.listOfConfig);
+  }
 }
