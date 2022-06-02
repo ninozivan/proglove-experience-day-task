@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { ConfigurationsPageRoutingModule } from './configurations-routing.module';
 
 import { ConfigurationsPage } from './configurations.page';
-import { ConfigSettingsFormComponent } from './components/config-settings-form/config-settings-form.component';
 
 @NgModule({
   imports: [
@@ -16,6 +15,6 @@ import { ConfigSettingsFormComponent } from './components/config-settings-form/c
     IonicModule,
     ConfigurationsPageRoutingModule,
   ],
-  declarations: [ConfigurationsPage, ConfigSettingsFormComponent],
+  declarations: [ConfigurationsPage],
 })
 export class ConfigurationsPageModule {}

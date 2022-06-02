@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-configurations',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./configurations.page.scss'],
 })
 export class ConfigurationsPage implements OnInit {
+  public listOfConfigurations: any = [1, 2, 3, 4, 5];
 
-  constructor() { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  public onCreate(): void {
+    this.router.navigate(['./create'], { relativeTo: this.activatedRoute });
   }
 
+  public onEdit(): void {
+    this.router.navigate([`./edit/555`], {
+      relativeTo: this.activatedRoute,
+    });
+  }
 }
