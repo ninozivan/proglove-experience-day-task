@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { EditPageRoutingModule } from './edit-routing.module';
 
 import { EditPage } from './edit.page';
-import { ConfigSettingsFormComponent } from '../components/config-settings-form/config-settings-form.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, EditPageRoutingModule],
-  declarations: [EditPage, ConfigSettingsFormComponent],
+  imports: [CommonModule, IonicModule, EditPageRoutingModule, SharedModule],
+  declarations: [EditPage],
 })
 export class EditPageModule {}
