@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/member-ordering */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IConfiguration } from 'src/assets/proto/configuration';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { IConfigListItem } from '../context/global.model';
 import { ApplicationService } from '../core/application.service';
 
@@ -10,7 +11,8 @@ import { ApplicationService } from '../core/application.service';
   templateUrl: './configurations.page.html',
   styleUrls: ['./configurations.page.scss'],
 })
-export class ConfigurationsPage implements OnInit {
+export class ConfigurationsPage implements OnInit, OnDestroy {
+  public destroyed$: Subject<boolean> = new Subject();
   public listOfConfigurations: IConfigListItem[] = [];
 
   constructor(
@@ -23,8 +25,18 @@ export class ConfigurationsPage implements OnInit {
     this.initialize();
   }
 
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
+  }
+
   private initialize(): void {
-    this.listOfConfigurations = this.appService.getConfigs();
+    this.appService
+      .observeListOfConfigs()
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe((listOfConfigs: IConfigListItem[]) => {
+        this.listOfConfigurations = listOfConfigs;
+      });
   }
 
   public onCreate(): void {

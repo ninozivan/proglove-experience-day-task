@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Configuration, IConfiguration } from 'src/assets/proto/configuration';
 import { IConfigListItem } from '../context/global.model';
 
@@ -37,9 +39,30 @@ export class ApplicationService {
     },
   ];
 
+  public listOfConfigs$: BehaviorSubject<IConfigListItem[]> =
+    new BehaviorSubject(this.listOfConfig);
+
   constructor() {}
 
   public getConfigs(): IConfiguration[] {
     return this.listOfConfig;
+  }
+
+  public observeListOfConfigs(): Observable<IConfiguration[]> {
+    return this.listOfConfigs$.asObservable();
+  }
+
+  public updateConfig(listItem: IConfigListItem): void {
+    const itemIndex: number = this.listOfConfig?.findIndex(
+      (item: IConfigListItem) => item.uid === listItem.uid
+    );
+
+    if (itemIndex < 0) {
+      return;
+    }
+
+    this.listOfConfig[itemIndex] = listItem;
+
+    this.listOfConfigs$.next(this.listOfConfig);
   }
 }
