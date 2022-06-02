@@ -51,13 +51,7 @@ export class ConfigSettingsFormComponent implements OnInit, OnDestroy {
     new EventEmitter<IConfiguration>();
 
   @Input() set itemConfig(config: IConfiguration) {
-    const tmpConfig: IConfiguration = {
-      timeout: 700,
-      deviceName: 'Device 1',
-      audibleFeedback: null,
-      visibleFeedback: Configuration.VisibleFeedback.GREEN,
-    };
-    this.setupForm(tmpConfig);
+    this.setupForm(config);
   }
 
   public destroyed$: Subject<boolean> = new Subject();
